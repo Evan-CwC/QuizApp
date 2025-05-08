@@ -10,19 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QuizApp">
 
-        <!-- Main launcher activity -->
         <activity
             android:name=".MainActivity"
-            android:exported="true"> <!-- required for Android 12+ -->
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- Missing QuizActivity -->
         <activity android:name=".QuizActivity" />
         <activity android:name=".ResultActivity" />
+        <activity android:name=".CalculatorActivity" />
 
     </application>
 

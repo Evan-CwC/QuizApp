@@ -33,5 +33,12 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Please enter your name", Toast.LENGTH_SHORT).show();
             }
         });
+
+        Button btnCalculator = findViewById(R.id.btn_calculator);
+        btnCalculator.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CalculatorActivity.class);
+            startActivity(intent);
+        });
+
     }
 }

@@ -61,7 +61,7 @@ public class QuizActivity extends AppCompatActivity {
             ));
 
             ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) rb.getLayoutParams();
-            params.setMargins(0, 0, 0, 24); // left, top, right, bottom
+            params.setMargins(0, 0, 0, 24);
             rb.setLayoutParams(params);
 
             rgOptions.addView(rb);

@@ -22,7 +22,6 @@ public class ResultActivity extends AppCompatActivity {
         btnRetry = findViewById(R.id.btn_retry);
         btnFinish = findViewById(R.id.btn_finish);
 
-        // Get data from previous screen
         score = getIntent().getIntExtra("score", 0);
         total = getIntent().getIntExtra("total", 0);
         username = getIntent().getStringExtra("username");
