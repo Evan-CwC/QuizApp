@@ -1,44 +1,50 @@
-package com.example.quizapp;
+package com.example.quizapp
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.*;
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
-public class MainActivity extends AppCompatActivity {
+class MainActivity : AppCompatActivity() {
+    var editTextName: EditText? = null
+    var buttonStart: Button? = null
 
-    EditText editTextName;
-    Button buttonStart;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        editTextName = findViewById(R.id.et_name)
+        buttonStart = findViewById(R.id.btn_start)
 
-        editTextName = findViewById(R.id.et_name);
-        buttonStart = findViewById(R.id.btn_start);
-
-        String passedName = getIntent().getStringExtra("username");
+        val passedName = intent.getStringExtra("username")
         if (passedName != null) {
-            editTextName.setText(passedName);
+            editTextName.setText(passedName)
         }
 
-        buttonStart.setOnClickListener(v -> {
-            String name = editTextName.getText().toString().trim();
+        buttonStart.setOnClickListener(View.OnClickListener { v: View? ->
+            val name = editTextName.getText().toString().trim { it <= ' ' }
             if (!name.isEmpty()) {
-                Intent intent = new Intent(MainActivity.this, QuizActivity.class);
-                intent.putExtra("username", name);
-                startActivity(intent);
+                val intent = Intent(
+                    this@MainActivity,
+                    QuizActivity::class.java
+                )
+                intent.putExtra("username", name)
+                startActivity(intent)
             } else {
-                Toast.makeText(this, "Please enter your name", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please enter your name", Toast.LENGTH_SHORT).show()
             }
-        });
+        })
 
-        Button btnCalculator = findViewById(R.id.btn_calculator);
-        btnCalculator.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, CalculatorActivity.class);
-            startActivity(intent);
-        });
-
+        val btnCalculator = findViewById<Button>(R.id.btn_calculator)
+        btnCalculator.setOnClickListener { v: View? ->
+            val intent = Intent(
+                this@MainActivity,
+                CalculatorActivity::class.java
+            )
+            startActivity(intent)
+        }
     }
 }
