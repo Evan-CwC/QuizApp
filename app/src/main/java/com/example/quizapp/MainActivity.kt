@@ -2,15 +2,14 @@ package com.example.quizapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
-    var editTextName: EditText? = null
-    var buttonStart: Button? = null
+
+    private lateinit var editTextName: EditText
+    private lateinit var buttonStart: Button
+    private lateinit var buttonCalculator: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,33 +17,26 @@ class MainActivity : AppCompatActivity() {
 
         editTextName = findViewById(R.id.et_name)
         buttonStart = findViewById(R.id.btn_start)
+        buttonCalculator = findViewById(R.id.btn_calculator)
 
-        val passedName = intent.getStringExtra("username")
-        if (passedName != null) {
-            editTextName.setText(passedName)
+
+        intent.getStringExtra("username")?.let {
+            editTextName.setText(it)
         }
 
-        buttonStart.setOnClickListener(View.OnClickListener { v: View? ->
-            val name = editTextName.getText().toString().trim { it <= ' ' }
-            if (!name.isEmpty()) {
-                val intent = Intent(
-                    this@MainActivity,
-                    QuizActivity::class.java
-                )
+        buttonStart.setOnClickListener {
+            val name = editTextName.text.toString().trim()
+            if (name.isNotEmpty()) {
+                val intent = Intent(this, QuizActivity::class.java)
                 intent.putExtra("username", name)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Please enter your name", Toast.LENGTH_SHORT).show()
             }
-        })
+        }
 
-        val btnCalculator = findViewById<Button>(R.id.btn_calculator)
-        btnCalculator.setOnClickListener { v: View? ->
-            val intent = Intent(
-                this@MainActivity,
-                CalculatorActivity::class.java
-            )
-            startActivity(intent)
+        buttonCalculator.setOnClickListener {
+            startActivity(Intent(this, CalculatorActivity::class.java))
         }
     }
 }

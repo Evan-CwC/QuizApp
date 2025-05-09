@@ -1,40 +1,45 @@
-package com.example.quizapp;
+package com.example.quizapp
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.*;
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
-public class ResultActivity extends AppCompatActivity {
+class ResultActivity : AppCompatActivity() {
 
-    private TextView tvScore;
-    private Button btnRetry, btnFinish;
-    private String username;
-    private int score, total;
+    private lateinit var tvScore: TextView
+    private lateinit var btnRetry: Button
+    private lateinit var btnFinish: Button
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result);
+    private var username: String = ""
+    private var score: Int = 0
+    private var total: Int = 0
 
-        tvScore = findViewById(R.id.tv_score);
-        btnRetry = findViewById(R.id.btn_retry);
-        btnFinish = findViewById(R.id.btn_finish);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_result)
 
-        score = getIntent().getIntExtra("score", 0);
-        total = getIntent().getIntExtra("total", 0);
-        username = getIntent().getStringExtra("username");
+        tvScore = findViewById(R.id.tv_score)
+        btnRetry = findViewById(R.id.btn_retry)
+        btnFinish = findViewById(R.id.btn_finish)
 
-        tvScore.setText("Your Score: " + score + " / " + total);
+        score = intent.getIntExtra("score", 0)
+        total = intent.getIntExtra("total", 0)
+        username = intent.getStringExtra("username") ?: ""
 
-        btnRetry.setOnClickListener(v -> {
-            Intent intent = new Intent(ResultActivity.this, MainActivity.class);
-            intent.putExtra("username", username);
-            startActivity(intent);
-            finish();
-        });
+        tvScore.text = "Your Score: $score / $total"
 
-        btnFinish.setOnClickListener(v -> finishAffinity());
+        btnRetry.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java).apply {
+                putExtra("username", username)
+            }
+            startActivity(intent)
+            finish()
+        }
+
+        btnFinish.setOnClickListener {
+            finishAffinity()
+        }
     }
 }
